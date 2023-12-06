@@ -1,0 +1,273 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Idol信息</title>
+<link href="format1.css" rel="stylesheet" type="text/css">
+<style>
+a {
+    color: white;
+}
+.introbox {
+    display: flex;
+    max-width: 1000px;
+    margin: 2em auto;
+    color: white;
+    background-color: #a5262b;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.introbox img {
+    background-color: white;
+    padding: 30px 20px;
+}
+.photobox {
+    margin-right: 60px;
+}
+.tit_in {
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 0.5em;
+    border-bottom: 2px dashed #dddddd;
+}
+.data {
+    border-bottom: 1px solid #dddddd;
+    height:55%;
+}
+.data ul li {
+    list-style: none;
+    width: 50%;
+    float: left;
+    padding: 0.5em 0;
+}
+.data ul {
+    padding-left: 0;
+}
+.contact p {
+    width: 50%;
+    float: left;
+}
+.contact h1 {
+    font-size: 20px;
+    border-left: 3px solid white;
+    padding-left: 0.5em;
+    color: white;
+    margin-top: 15px;
+}
+.name p {
+    text-align: center;
+}
+.name h1 {
+    padding-left: 20px;
+    color: white;
+}
+.pl {
+    margin-left: 0;
+}
+.pr {
+    margin-right: 0;
+}
+#audioPlayer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: floralwhite;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px;
+    box-sizing: border-box;
+}
+#albumimage {
+    position: relative;
+}
+
+#albumimage img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+#albumimage.play:hover::before {
+    content: "\25B6";
+    font-size: 24px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+    z-index: 1; 
+}
+
+#albumimage.pause:hover::before {
+    content: "❚❚";
+    font-size: 24px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+    z-index: 1; 
+  
+}
+
+#audioControls {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+.musicname p{
+		color: black;
+		font-size: 20px;
+		font-weight: bold;
+		margin-bottom: 0;
+		margin-top: 0;
+	}	
+input[type="range"] {
+    width: 100%;
+    margin-top: 20px;
+}
+#audioControls {
+    margin-right: 10px;
+}
+
+
+</style>
+</head>
+<header>
+  <nav>
+    <ul>
+      <li><a href="">班级主页</a></li>
+      <li><a href="613.html">寝室主页</a></li>
+	  <li><a href="index.html">个人主页</a></li>
+    </ul>
+  </nav>
+</header>
+<body>
+<div class="pl"> <img src="../image/pk1.jpg"  height="515" alt=""/> </div>
+<div class="introbox">
+  <div class="photobox"> <span> <img id="u_u7_21886pic" src="../image/photo.jpg" width="226" height="271"> </span>
+    <div class="name">
+      <h1>丁真珍珠</h1>
+      <p>著名歌手
+        &nbsp;&nbsp; 演员
+        &nbsp;&nbsp; 联合国代表 </p>
+    </div>
+  </div>
+  <div class="brief">
+    <div class="data">
+      <div class="tit_in">个人信息</div>
+      <ul class="clearfix">
+        <li>英文名称： Dingzhen</li>
+        <li>性别： 男</li>
+        <li>在职信息： 在职</li>
+        <li>所在单位： 四川理塘文旅局</li>
+        <li>学历： 小学毕业</li>
+        <li>学位： 文学博士学位</li>
+		 <li>代表作：《烟Distance》《Zood》</li>
+      </ul>
+    </div>
+    <div class="contact">
+      <h1>其他联系方式</h1>
+      <div class="xx_lx">
+        <p>邮编：114514</p>
+        <p>通讯地址：四川省甘孜藏族自治州理塘县</p>
+        <p>邮箱：114514@dingzhen.com</p>
+        <p></p>
+        <p>微博：<a href="https://m.weibo.cn/u/7524392184">理塘丁真</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pr"><img src="../image/pk2.jpg"  height="515" alt=""/></div>
+<div id="audioPlayer"> <div id="albumimage"><img id="albumImage" src="../image/理塘夏天.jpg" alt="Album Cover">
+	</div>
+  <div id="audioControls">
+	  <div class="musicname">
+		  <p>理塘夏天——丁真珍珠</p>
+	  </div>
+    <input type="range" id="seekbar" value="0" max="100">
+  </div>
+</div>
+<script>
+ var audio = new Audio("../image/理塘夏天.mp3");
+var seekbar = document.getElementById("seekbar");
+var albumimage = document.getElementById("albumimage");
+albumimage.className = "play";
+var rotating = false; // 旋转状态变量
+albumimage.addEventListener("click", function () {
+    if (audio.paused) {
+        audio.play().then(function() {
+            startRotation();
+            updatePlayIcon(true); 
+        }).catch(function(error) {
+            console.error("Failed to start audio playback:", error);
+        });
+    } else {
+        audio.pause();
+        stopRotation(); 
+        updatePlayIcon(false); 
+    }
+});
+
+audio.addEventListener("canplay", function() {
+    startRotation();
+});
+
+audio.addEventListener("ended", function() {
+    stopRotation();
+    updatePlayIcon(false);
+});
+
+seekbar.addEventListener("input", function () {
+    var seekValue = seekbar.value;
+    var duration = audio.duration;
+    var currentTime = (seekValue / 100) * duration;
+    audio.currentTime = currentTime;
+});
+
+audio.addEventListener("timeupdate", function () {
+    var currentTime = audio.currentTime;
+    var duration = audio.duration;
+    var seekValue = (currentTime / duration) * 100;
+    seekbar.value = seekValue;
+});
+
+function startRotation() {
+    rotating = true;
+    rotateAlbum();
+}
+
+function stopRotation() {
+    rotating = false;
+}
+
+var currentRotation = 0; // 旋转角度
+
+function rotateAlbum() {
+    if (rotating && !audio.paused) {
+        // 递增
+        currentRotation += 0.4;
+        albumImage.style.transform = "rotate(" + currentRotation + "deg)";
+
+        requestAnimationFrame(function() {
+            rotateAlbum();
+        });
+    }
+}
+function updatePlayIcon() {
+
+    if (audio.paused) {
+        albumimage.className = "play";
+    } else {
+        albumimage.className = "pause";
+    }
+}
+    </script>
+</body>
+</html>
